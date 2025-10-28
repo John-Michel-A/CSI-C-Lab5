@@ -58,11 +58,11 @@ void Card::write(){ //display color and value
     case 1:
     cout << "diamond " << val <<endl;
         break;
-    case 2:
-    cout << "heart" << val<<endl;
-        break;
+	case 2:
+	cout << "heart " << val<<endl;
+		break;
     case 3:
-    cout << "spade" << val<<endl;
+	cout << "spade " << val<<endl;
         break;
     default:
     cout << "This card shouldn't exist" ;//this should never happen
@@ -97,7 +97,9 @@ void CardsSet::shuffle(){
     for (size_t i = 0; i < 52; i++)
 	{
 		int r = rand() % 52 ;
+		Card temp = set[i];
 		set[i] = set[r];
+		set[r] = temp;
 	}
 	
 }
