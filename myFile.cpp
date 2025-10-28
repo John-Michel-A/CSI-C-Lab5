@@ -46,11 +46,37 @@ int main() {
 	return 0;
 }
 
+/*
+-----------------------------------------------------------------------------------------------------------
+Question 1*/
+void Card::write(){ //display color and value
+ switch (col)
+ {
+    case 0:
+    cout << "club " << val <<endl;
+        break;
+    case 1:
+    cout << "diamond " << val <<endl;
+        break;
+    case 2:
+    cout << "heart" << val<<endl;
+        break;
+    case 3:
+    cout << "spade" << val<<endl;
+        break;
+    default:
+    cout << "This card shouldn't exist" ;//this should never happen
+        break;
+ }
+}
 
 
 
+/*
+--------------------------------------------------------------------------
+Question 2
+*/
 
-/*Question 2*/
 
 
 void CardsSet::novSet(){
@@ -62,21 +88,103 @@ void CardsSet::novSet(){
         }
         
     }
+	number = 52;
     
 }
 
 void CardsSet::shuffle(){
-    
+	srand(time(0));
+    for (size_t i = 0; i < 52; i++)
+	{
+		int r = rand() % 52 ;
+		set[i] = set[r];
+	}
+	
 }
 Card CardsSet::take(){
-    
+    if (number == 0)
+	{
+		cout << "no cards";
+	}
+	return set[--number];
+	
 }
 
 void CardsSet::put(Card k){
-    
+    set[number++];
 }
 
 Card CardsSet::lookIn(int n){
-    
+    return set[n-1];
+}
+
+/*
+------------------------------------------------------------------------------
+Question 3*/
+
+int Player::play(){
+	bool keepdrawing;
+do
+{
+	
+	Card card = packet.take();
+  cout<< "You get Card:" ; card.write();
+  inHand.put(card);
+  cout<< "Your score is " <<countPoints() << "points"<<endl;
+  if (countPoints() > 21)
+  {
+	return countPoints();
+  }
+  
+cout<< "Any additional Card ?[y/n]";
+	do
+	{
+	  string input;
+	  cin >> input;
+		if (input == "y" || input == "n" ) // if the input is valid change keepdrawing and break out of the inner loop.
+		{
+			keepdrawing = (input == "y")? true:false;
+			break;        
+		}
+		cout<< "invalid input";
+	} while (1);
+ 
+} while (keepdrawing);
+
+
+
+	return countPoints();
+
+}
+
+int Player::countPoints(){
+	int sum = 0;
+	int numAces = 0;
+	for (size_t i = 1; i <= inHand.numCards(); i++)
+	{   
+		int value = inHand.lookIn(i).value();
+		if (value == 1)
+		{
+			numAces++;
+		}
+		else{
+		sum += value;
+
+		}
+	}
+	while (numAces-- > 0)
+	{
+		if (sum + 14 >21) // if ace = 14 goes over 21.
+		{
+			sum += 1;
+		}
+		else{ // if it doesn't it becomes 14.
+			sum += 14;
+		}
+		
+	}
+	
+	return sum;
+	
 }
 

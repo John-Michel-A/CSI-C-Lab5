@@ -21,23 +21,3 @@ Card::Card(color c, int v) {
     col = c;
     val = v;
 }
-void Card::write(){ //display color and value
- switch (col)
- {
-    case 0:
-    cout << "club " << val <<endl;
-        break;
-    case 1:
-    cout << "diamond " << val <<endl;
-        break;
-    case 2:
-    cout << "heart" << val<<endl;
-        break;
-    case 3:
-    cout << "spade" << val<<endl;
-        break;
-    default:
-    cout << "This card shouldn't exist" ;//this should never happen
-        break;
- }
-}
