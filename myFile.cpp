@@ -107,14 +107,16 @@ Card CardsSet::take(){
     if (number == 0)
 	{
 		cout << "no cards";
+		return Card();
 	}
 	return set[--number];
 	
 }
 
 void CardsSet::put(Card k){
-    set[number++];
+	set[number++] = k;
 }
+
 
 Card CardsSet::lookIn(int n){
     return set[n-1];
@@ -125,14 +127,14 @@ Card CardsSet::lookIn(int n){
 Question 3*/
 
 int Player::play(){
-	bool keepdrawing;
+	bool keepDrawing;
 do
 {
 	
 	Card card = packet.take();
   cout<< "You get Card:" ; card.write();
   inHand.put(card);
-  cout<< "Your score is " <<countPoints() << "points"<<endl;
+  cout<< "Your score is " <<countPoints() << " points"<<endl;
   if (countPoints() > 21)
   {
 	return countPoints();
@@ -143,15 +145,15 @@ cout<< "Any additional Card ?[y/n]";
 	{
 	  string input;
 	  cin >> input;
-		if (input == "y" || input == "n" ) // if the input is valid change keepdrawing and break out of the inner loop.
+		if (input == "y" || input == "n" ) // if the input is valid change keepDrawing and break out of the inner loop.
 		{
-			keepdrawing = (input == "y")? true:false;
+			keepDrawing = (input == "y")? true:false;
 			break;        
 		}
 		cout<< "invalid input";
 	} while (1);
  
-} while (keepdrawing);
+} while (keepDrawing);
 
 
 
